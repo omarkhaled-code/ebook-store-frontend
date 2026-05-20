@@ -1,26 +1,171 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  /* Colors */
+  --color-inverse-on-surface: #f2effb;
+  --color-tertiary-fixed: #ffdcc5;
+  --color-on-secondary-container: #fffbff;
+  --color-surface-variant: #e4e1ed;
+  --color-background: #fcf8ff;
+  --color-on-error-container: #93000a;
+  --color-surface-container-high: #e9e6f3;
+  --color-surface-tint: #494bd6;
+  --color-inverse-primary: #c0c1ff;
+  --color-on-primary-fixed: #07006c;
+  --color-on-secondary-fixed: #23005c;
+  --color-secondary-container: #8455ef;
+  --color-surface-bright: #fcf8ff;
+  --color-on-tertiary-fixed: #301400;
+  --color-secondary-fixed: #e9ddff;
+  --color-on-surface-variant: #464554;
+  --color-outline: #767586;
+  --color-on-primary: #ffffff;
+  --color-primary-container: #6063ee;
+  --color-surface-dim: #dbd8e4;
+  --color-surface-container-highest: #e4e1ed;
+  --color-surface-container-lowest: #ffffff;
+  --color-on-secondary: #ffffff;
+  --color-on-primary-container: #fffbff;
+  --color-primary: #4648d4;
+  --color-on-secondary-fixed-variant: #5516be;
+  --color-primary-fixed-dim: #c0c1ff;
+  --color-on-tertiary: #ffffff;
+  --color-on-surface: #1b1b23;
+  --color-inverse-surface: #303038;
+  --color-primary-fixed: #e1e0ff;
+  --color-tertiary-fixed-dim: #ffb783;
+  --color-surface-container: #efecf8;
+  --color-error-container: #ffdad6;
+  --color-on-tertiary-fixed-variant: #703700;
+  --color-outline-variant: #c7c4d7;
+  --color-on-error: #ffffff;
+  --color-surface-container-low: #f5f2fe;
+  --color-on-background: #1b1b23;
+  --color-secondary-fixed-dim: #d0bcff;
+  --color-tertiary: #904900;
+  --color-error: #ba1a1a;
+  --color-on-tertiary-container: #fffbff;
+  --color-surface: #fcf8ff;
+  --color-secondary: #6b38d4;
+  --color-tertiary-container: #b55d00;
+  --color-on-primary-fixed-variant: #2f2ebe;
+
+  /* Border Radius */
+  --radius: 0.25rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-full: 9999px;
+
+  /* Spacing */
+  --spacing-md: 1.5rem;
+  --spacing-unit: 4px;
+  --spacing-gutter: 24px;
+  --spacing-xl: 4rem;
+  --spacing-sm: 1rem;
+  --spacing-container-max: 1280px;
+  --spacing-xs: 0.5rem;
+  --spacing-lg: 2.5rem;
+
+  /* Fonts */
+  --font-body-sm: "Inter", sans-serif;
+  --font-label-mono: "JetBrains Mono", monospace;
+  --font-headline-sm: "Geist", sans-serif;
+  --font-body-lg: "Inter", sans-serif;
+  --font-display-lg: "Geist", sans-serif;
+  --font-body-md: "Inter", sans-serif;
+  --font-headline-md: "Geist", sans-serif;
+
+  /* Font Sizes */
+  --text-body-sm: 14px;
+  --text-body-sm--line-height: 1.5;
+  --text-body-sm--font-weight: 400;
+
+  --text-label-mono: 12px;
+  --text-label-mono--line-height: 1;
+  --text-label-mono--letter-spacing: 0.05em;
+  --text-label-mono--font-weight: 500;
+
+  --text-headline-sm: 20px;
+  --text-headline-sm--line-height: 1.4;
+  --text-headline-sm--font-weight: 600;
+
+  --text-body-lg: 18px;
+  --text-body-lg--line-height: 1.6;
+  --text-body-lg--font-weight: 400;
+
+  --text-display-lg: 48px;
+  --text-display-lg--line-height: 1.1;
+  --text-display-lg--letter-spacing: -0.02em;
+  --text-display-lg--font-weight: 700;
+
+  --text-body-md: 16px;
+  --text-body-md--line-height: 1.6;
+  --text-body-md--font-weight: 400;
+
+  --text-headline-md: 30px;
+  --text-headline-md--line-height: 1.2;
+  --text-headline-md--letter-spacing: -0.01em;
+  --text-headline-md--font-weight: 600;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.glass-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  scroll-behavior: smooth;
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+    "FILL" 0,
+    "wght" 400,
+    "GRAD" 0,
+    "opsz" 24;
+}
+
+/* Custom pulsing for the logo as per user request */
+@keyframes subtle-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(0.98);
+  }
+}
+.animate-subtle-pulse {
+  animation: subtle-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Progress bar animation */
+@keyframes progress-fill {
+  0% {
+    width: 0%;
+  }
+  30% {
+    width: 45%;
+  }
+  70% {
+    width: 75%;
+  }
+  100% {
+    width: 92%;
+  }
+}
+.animate-progress {
+  animation: progress-fill 4s ease-out forwards;
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+    "FILL" 0,
+    "wght" 400,
+    "GRAD" 0,
+    "opsz" 24;
 }
