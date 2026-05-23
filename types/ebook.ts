@@ -5,10 +5,14 @@ export type Ebook = {
   description: string
   author: string
   cover_image_path: string | null
-  price: string
+  price: number
+  isNew: boolean,
+  isBestSeller:boolean,
   created_at: string
   updated_at: string
 }
+
+
 
 export type EbookPagination = {
   data: Ebook[]
