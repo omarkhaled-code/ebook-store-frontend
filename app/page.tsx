@@ -2,7 +2,7 @@
 import EbookCard from '@/components/ebook/EbookCard'; // Adjust this import path based on your folder structure
 import Link from 'next/link';
 
-const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+// const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const featuredBooks = [
     {
@@ -37,7 +37,7 @@ const featuredBooks = [
 export default async function HomePage() {
   // Hardcoded mock data from your original HTML design layout
 
-  await delay(6000);
+  // await delay(500);
   
   return (
     <div className="bg-background text-on-background antialiased overflow-x-hidden min-h-screen">

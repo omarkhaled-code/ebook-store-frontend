@@ -1,0 +1,29 @@
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    theme("colors.surface-container-highest") 0%,
+    theme("colors.surface-container-low") 50%,
+    theme("colors.surface-container-highest") 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.skeleton_text {
+  height: 1em;
+  border-radius: theme("borderRadius.DEFAULT");
+}
+
+.skeleton_block {
+  border-radius: theme("borderRadius.xl");
+}
