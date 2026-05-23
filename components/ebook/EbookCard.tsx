@@ -1,31 +1,46 @@
-import React from 'react';
+import Image from "next/image"
+import Link from "next/link"
 
-// Defining types for our Ebook properties
 interface EbookCardProps {
-  title: string;
-  author: string;
-  price: number;
-  imageUrl: string;
-  isNew?: boolean;
-  isBestSeller?: boolean;
+  title: string
+  author: string
+  price: string | number
+  slug: string
+  imageUrl?: string | null
+  isNew?: boolean
+  isBestSeller?: boolean
 }
 
 export default function EbookCard({
   title,
   author,
   price,
+  slug,
   imageUrl,
   isNew = false,
   isBestSeller = false,
 }: EbookCardProps) {
   return (
-    <div className="bg-surface-container-lowest p-sm rounded-2xl border border-outline-variant/30 hover:border-primary/50 hover:shadow-lg transition-all group">
+    <Link
+      href={`/ebooks/${slug}`}
+      className="bg-surface-container-lowest p-sm rounded-2xl border border-outline-variant/30 hover:border-primary/50 hover:shadow-lg transition-all group"
+    >
       <div className="aspect-[3/4] rounded-xl overflow-hidden mb-sm relative">
-        <img
-          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-          alt={title}
-          src={imageUrl}
-        />
+        {imageUrl ? (
+          <img
+            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+            alt={title}
+            src={imageUrl}
+          />
+        ) : (
+          <Image
+            src="/images/book-cover.png"
+            alt="Book Cover"
+            width={300}
+            height={400}
+            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+          />
+        )}
         {isNew && (
           <div className="absolute top-2 right-2 bg-primary text-on-primary px-xs py-1 rounded-full font-label-mono text-[10px] uppercase">
             New
@@ -55,6 +70,6 @@ export default function EbookCard({
           </button>
         </div>
       </div>
-    </div>
-  );
+    </Link>
+  )
 }

@@ -1,3 +1,4 @@
+import Link from "next/link";
 export default function Footer() {
     return (
         <footer className="bg-surface-container-lowest dark:bg-surface-dim w-full py-md border-t border-outline-variant/30">
@@ -27,19 +28,19 @@ export default function Footer() {
                     <h5 className="font-body-md text-body-md font-bold text-on-surface">Marketplace</h5>
                     <ul className="space-y-2">
                         <li>
-                            <a className="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-all" href="#">
+                            <Link href="/ebooks" className="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-all">
                                 All Ebooks
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <a className="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-all" href="#">
+                            <Link href="#" className="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-all">
                                 Design &amp; Creative
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <a className="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-all" href="#">
+                            <Link href="#" className="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-all">
                                 Engineering
-                            </a>
+                            </Link>
                         </li>
                     </ul>
                 </div>
