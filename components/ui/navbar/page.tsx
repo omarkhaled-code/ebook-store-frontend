@@ -63,7 +63,7 @@ export default function Navbar() {
 
                         // <LinkComponent href="/auth">
                         //     Join Now
-                        // </LinkComponent>
+                        // </LingkComponent>
                         <Link href="/auth" className="bg-primary text-on-primary px-5 py-2 rounded-lg font-body-md text-body-md font-semibold scale-100 active:scale-95 transition-all shadow-md">Join Now</Link>
                     ) : (
                         <button className="hidden lg:flex items-center px-sm py-xs text-on-surface-variant hover:text-red-500 cursor-pointer  transition-colors" onClick={handleLogout}>
