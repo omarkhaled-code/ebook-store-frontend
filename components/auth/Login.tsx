@@ -3,10 +3,12 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import SocialLogin from "./SocialLogin"
+import { useAuthStore } from '@/store/authStore'
 
 export default function Login({ changeMode }) {
 
   const router = useRouter()
+  const {setUser} = useAuthStore()
 
   // =========================
   // States
@@ -16,7 +18,14 @@ export default function Login({ changeMode }) {
     password: '',
   })
 
+
+  // Error states
   const [error, setError] = useState('')
+  const [validationErrors, setValidationErrors] = useState({
+    email: '',
+    password: '',
+  })
+
   const [loading, setLoading] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
 
@@ -32,6 +41,47 @@ export default function Login({ changeMode }) {
     }))
   }
 
+  const validateForm = () => {
+
+    const errors = {
+      email: '',
+      password: '',
+    }
+
+    // =========================
+    // Email Validation
+    // =========================
+    if (!formData.email.trim()) {
+
+      errors.email = 'Email is required'
+
+    } else if (
+      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)
+    ) {
+
+      errors.email = 'Invalid email format'
+
+    }
+
+    // =========================
+    // Password Validation
+    // =========================
+    if (!formData.password.trim()) {
+
+      errors.password = 'Password is required'
+
+    } else if (formData.password.length < 6) {
+
+      errors.password = 'Password must be at least 6 characters'
+
+    }
+
+    setValidationErrors(errors)
+
+    return !errors.email && !errors.password
+
+  }
+
   // =========================
   // Handle Submit
   // =========================
@@ -39,7 +89,11 @@ export default function Login({ changeMode }) {
     e.preventDefault()
 
     setError('')
+    const isValid = validateForm()
+    if (!isValid) return
+    
     setLoading(true)
+
 
     try {
 
@@ -51,7 +105,7 @@ export default function Login({ changeMode }) {
         body: JSON.stringify(formData),
       })
 
-      const data = await response.json()
+      const data = await response.json().catch(() => null)
 
       // Handle API Errors
       if (!response.ok) {
@@ -60,14 +114,19 @@ export default function Login({ changeMode }) {
 
       // Success
       console.log('User:', data.user)
+      setUser(data.user)
+
+      router.refresh()
 
       // Redirect
-      router.push('/dashboard')
+      router.push('/')
 
     } catch (err) {
-
-      setError(err.message)
-
+      if (err instanceof Error) {
+        setError(err.message)
+      } else {
+        setError('Something went wrong')
+      }
     } finally {
 
       setLoading(false)
@@ -111,7 +170,8 @@ export default function Login({ changeMode }) {
 
               <div className="relative">
 
-                <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline-variant">
+
+                <span className={`material-symbols-outlined absolute left-3 -translate-y-1/2 text-outline-variant ${validationErrors.email ? 'text-red-500 top-1/3' : 'top-1/2'}`} >
                   mail
                 </span>
 
@@ -123,10 +183,14 @@ export default function Login({ changeMode }) {
                   autoComplete="email"
                   value={formData.email}
                   onChange={handleChange}
-                  required
-                  className="w-full pl-10 pr-4 py-3 bg-surface-container-low border border-outline-variant rounded-lg focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all font-body-md outline-none"
+                  className={`w-full pl-10 pr-12 py-3 bg-surface-container-low border border-outline-variant rounded-lg focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all font-body-md outline-none ${validationErrors.email ? 'border-red-500 focus:ring-red-100 focus:border-red-500' : ''}`}
                 />
 
+                {validationErrors.email && (
+                  <p className="text-sm text-red-500 pt-1">
+                    {validationErrors.email}
+                  </p>
+                )}
               </div>
             </div>
 
@@ -142,7 +206,7 @@ export default function Login({ changeMode }) {
 
               <div className="relative">
 
-                <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline-variant">
+                <span className={`material-symbols-outlined absolute left-3 -translate-y-1/2 text-outline-variant ${validationErrors.password ? 'text-red-500 top-1/3' : 'top-1/2'}`} >
                   lock
                 </span>
 
@@ -154,9 +218,13 @@ export default function Login({ changeMode }) {
                   autoComplete="current-password"
                   value={formData.password}
                   onChange={handleChange}
-                  required
-                  className="w-full pl-10 pr-12 py-3 bg-surface-container-low border border-outline-variant rounded-lg focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all font-body-md outline-none"
+                  className={`w-full pl-10 pr-12 py-3 bg-surface-container-low border border-outline-variant rounded-lg focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all font-body-md outline-none ${validationErrors.password ? 'border-red-500 focus:ring-red-100 focus:border-red-500' : ''}`}
                 />
+                {validationErrors.password && (
+                  <p className="text-sm text-red-500 pt-1">
+                    {validationErrors.password}
+                  </p>
+                )}
 
                 <button
                   type="button"
@@ -174,7 +242,7 @@ export default function Login({ changeMode }) {
 
             {/* Error Message */}
             {error && (
-              <p className="text-sm text-red-500">
+              <p className="text-red-500 text-center font-body-sm">
                 {error}
               </p>
             )}
