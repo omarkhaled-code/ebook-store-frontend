@@ -1,5 +1,6 @@
 
 import EbookCard from '@/components/ebook/EbookCard'; // Adjust this import path based on your folder structure
+
 import Link from 'next/link';
 
 // const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -34,9 +35,9 @@ const featuredBooks = [
   ];
 
 
-export default async function HomePage() {
+export default function HomePage() {
   // Hardcoded mock data from your original HTML design layout
-
+  
   // await delay(500);
   
   return (
@@ -52,7 +53,7 @@ export default async function HomePage() {
           <div className="space-y-md">
             <div className="inline-flex items-center gap-xs px-sm py-1 rounded-full bg-secondary-container/10 border border-secondary-container/20 text-secondary font-label-mono text-label-mono uppercase tracking-wider">
               <span className="material-symbols-outlined text-[14px]">auto_stories</span>
-              The Future of Digital Learning
+              The Future of Digital Learning 
             </div>
             <h1 className="font-display-lg text-display-lg text-on-surface leading-[1.05]">
               Premium Knowledge, <span className="text-primary">Elegantly Packaged.</span>
