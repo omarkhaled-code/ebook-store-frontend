@@ -3,6 +3,7 @@ import { Ebook } from '@/types/ebook'
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import RelatedEbooks from '@/components/ebook/RelatedEbooks'
+import RunToast from '@/components/ui/RunToast'
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -25,6 +26,7 @@ export default async function EbookDetailPage({ params }: Props) {
 
   return (
     <main className="pt-24 pb-xl">
+      <RunToast />
       <div className="max-w-container-max mx-auto px-4 md:px-gutter">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-xl">
           {/* <!-- Book Cover & Actions --> */}

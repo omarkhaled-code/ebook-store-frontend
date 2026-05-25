@@ -3,6 +3,7 @@ import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/ui/navbar/page";
 import Footer from "@/components/ui/footer/page";
+import ToastContainer from "@/components/ui/Tost";
 
 
 const inter = Inter({
@@ -34,9 +35,11 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.variable} ${jetbrains.variable} bg-background text-on-background antialiased overflow-x-hidden `}>
-        <Navbar/>
+        <Navbar />
         {children}
-        <Footer/>
+        <Footer />
+        <ToastContainer /> {/* 👈 add here */}
+
       </body>
     </html>
   );

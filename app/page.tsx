@@ -1,48 +1,50 @@
 
 import EbookCard from '@/components/ebook/EbookCard'; // Adjust this import path based on your folder structure
+import RunToast from '@/components/ui/RunToast';
 
 import Link from 'next/link';
 
 // const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const featuredBooks = [
-    {
-      title: 'Architectural Ethics',
-      author: 'Elena Rodriguez',
-      price: 34,
-      imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAgIcuSr0tLpYNTnXNvCBJrGs547RAzxrzwoQuXv232oXoJaoh451H5DBmPVYXYWR3LkIPUeJ73Sp9XaFWvVzZPgEORbx-DoNTsU6xRa0XyHRC3hSnIwHgO5okRY8w0TAws5L68MYQ97e8sZKhHvXnbmpklQ1bBiGoPV_rJoGNO4B67qjZyp7fopnoiUl2fLufjogA0sUn9VoyFXoWPbyfauA06BA9RggoV6h7XWyAF_2FGrnMMuHmkjvWyz-rEF-WXsPF6L29iUQ',
-      isNew: true,
-    },
-    {
-      title: 'The AI Frontier',
-      author: 'Marcus Thorne',
-      price: 42,
-      imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCEZ1rfR7EoVk3kEXVnET3u3NEv1a_EFK63RtSepBUG_NGJFZnjIjnEdDkDlkPOFsPfHCHs343cQudQWmm0TjAft_ZRhFifyxSxkQhpxBx7uPWTrkbAA061KpfWg6xfO8nAL31n_ya65f5Rqc9qve7T6acRaqD5qlWGo2XnfkHCgBdHPJWXOHreFTpXGQ702CqF3-HIdlNBWsGGKgwBWVO_AdnRo70Swe_IeTDWf-thA6CUrE8_2LFaDvBsyEdlEbI6oFJARgf9Ww',
-    },
-    {
-      title: 'Theory of Hue',
-      author: 'Sarah Jenkins',
-      price: 25,
-      imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCOmYEjDVS_oM9PRBbz8EGsklMbrSo6x8UezZYlTwJIz5aXl0rfAmHjCUdiFgUtsoAKcCAr-efIrasK_lasFYBrX2rFqtTrFQ6F30qU2dDrqRB0xpVzLeaVGEKlFoEh7pMjN0DmCqRkIlEy7682JM-9vSzydZov85jHzMHICi-2D5E6nauiIjcdaPB-ZsiKNz0ZbsswfNVIRet2byPGAQbOa7O1hMQg0a4RO_-u5sWB5uqOelitmin-rG7mFdCqRdJmCUkEi7T2KQ',
-      isBestSeller: true,
-    },
-    {
-      title: 'Ascent to Lead',
-      author: 'David Wu',
-      price: 39,
-      imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuB1J1UwN-4-Oor9Kjsb8yFCs6xt-SUYr7WLE2TERLe7ux3dOe4_Cd1KGxdNGHNSEhFa5NQACPMLLnsb2Z2HYWyRRnEOXBiYIHhhDnmvFMuwHFsocldN3lZNth4Ygb_bXUJ0eP8xWgIsZXoUB5yG_PpGzG5GE9fJR-ldJQP9-wF9p6ccEOGwh1-L9t-7aB66CpPFn8ye-XEAb46AIfUi3_7D5iNJxzzMMDkf4lUZ9rGu9wCbSCtMaeL5QkPy9QTaiUZjtw7Dy8gszg',
-    },
-  ];
+  {
+    title: 'Architectural Ethics',
+    author: 'Elena Rodriguez',
+    price: 34,
+    imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAgIcuSr0tLpYNTnXNvCBJrGs547RAzxrzwoQuXv232oXoJaoh451H5DBmPVYXYWR3LkIPUeJ73Sp9XaFWvVzZPgEORbx-DoNTsU6xRa0XyHRC3hSnIwHgO5okRY8w0TAws5L68MYQ97e8sZKhHvXnbmpklQ1bBiGoPV_rJoGNO4B67qjZyp7fopnoiUl2fLufjogA0sUn9VoyFXoWPbyfauA06BA9RggoV6h7XWyAF_2FGrnMMuHmkjvWyz-rEF-WXsPF6L29iUQ',
+    isNew: true,
+  },
+  {
+    title: 'The AI Frontier',
+    author: 'Marcus Thorne',
+    price: 42,
+    imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCEZ1rfR7EoVk3kEXVnET3u3NEv1a_EFK63RtSepBUG_NGJFZnjIjnEdDkDlkPOFsPfHCHs343cQudQWmm0TjAft_ZRhFifyxSxkQhpxBx7uPWTrkbAA061KpfWg6xfO8nAL31n_ya65f5Rqc9qve7T6acRaqD5qlWGo2XnfkHCgBdHPJWXOHreFTpXGQ702CqF3-HIdlNBWsGGKgwBWVO_AdnRo70Swe_IeTDWf-thA6CUrE8_2LFaDvBsyEdlEbI6oFJARgf9Ww',
+  },
+  {
+    title: 'Theory of Hue',
+    author: 'Sarah Jenkins',
+    price: 25,
+    imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCOmYEjDVS_oM9PRBbz8EGsklMbrSo6x8UezZYlTwJIz5aXl0rfAmHjCUdiFgUtsoAKcCAr-efIrasK_lasFYBrX2rFqtTrFQ6F30qU2dDrqRB0xpVzLeaVGEKlFoEh7pMjN0DmCqRkIlEy7682JM-9vSzydZov85jHzMHICi-2D5E6nauiIjcdaPB-ZsiKNz0ZbsswfNVIRet2byPGAQbOa7O1hMQg0a4RO_-u5sWB5uqOelitmin-rG7mFdCqRdJmCUkEi7T2KQ',
+    isBestSeller: true,
+  },
+  {
+    title: 'Ascent to Lead',
+    author: 'David Wu',
+    price: 39,
+    imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuB1J1UwN-4-Oor9Kjsb8yFCs6xt-SUYr7WLE2TERLe7ux3dOe4_Cd1KGxdNGHNSEhFa5NQACPMLLnsb2Z2HYWyRRnEOXBiYIHhhDnmvFMuwHFsocldN3lZNth4Ygb_bXUJ0eP8xWgIsZXoUB5yG_PpGzG5GE9fJR-ldJQP9-wF9p6ccEOGwh1-L9t-7aB66CpPFn8ye-XEAb46AIfUi3_7D5iNJxzzMMDkf4lUZ9rGu9wCbSCtMaeL5QkPy9QTaiUZjtw7Dy8gszg',
+  },
+];
 
 
 export default function HomePage() {
   // Hardcoded mock data from your original HTML design layout
-  
+
   // await delay(500);
-  
+
+
   return (
     <div className="bg-background text-on-background antialiased overflow-x-hidden min-h-screen">
-
+      
       {/* Hero Section */}
       <header className="relative pt-32 pb-xl overflow-hidden">
         <div className="absolute inset-0 -z-10">
@@ -66,7 +68,6 @@ export default function HomePage() {
                 Explore More Ebooks
                 <span className="material-symbols-outlined">arrow_forward</span>
               </Link>
-
             </div>
             <div className="flex items-center gap-md pt-md">
               <div className="flex -space-x-3">
