@@ -2,9 +2,10 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { useAuthStore } from '@/store/authStore'
 
 export default function Register({ changeMode }) {
-
+  const { setUser } = useAuthStore()
   const router = useRouter()
 
   // =========================
@@ -113,10 +114,14 @@ export default function Register({ changeMode }) {
         throw new Error(data?.message || 'Registration failed')
       }
 
-      console.log('User:', data.user)
+      // 👈 Save user to Zustand
+      setUser(data.user)
 
+      // 👈 Redirect to verify email page — not dashboard!
       router.refresh()
-      router.push('/dashboard')
+      router.push('/auth/verify-email')
+
+      
 
     } catch (err) {
 
@@ -166,9 +171,9 @@ export default function Register({ changeMode }) {
                 required
                 className={`w-full pl-4 pr-4 py-3 bg-surface-container-low border rounded-lg outline-none transition-all
                 ${validationErrors.name
-                  ? 'border-red-500 focus:ring-red-500'
-                  : 'border-outline-variant focus:ring-primary/10 focus:border-primary'
-                }`}
+                    ? 'border-red-500 focus:ring-red-500'
+                    : 'border-outline-variant focus:ring-primary/10 focus:border-primary'
+                  }`}
               />
 
               {validationErrors.name && (
@@ -193,9 +198,9 @@ export default function Register({ changeMode }) {
                 required
                 className={`w-full pl-4 pr-4 py-3 bg-surface-container-low border rounded-lg outline-none transition-all
                 ${validationErrors.email
-                  ? 'border-red-500 focus:ring-red-500'
-                  : 'border-outline-variant focus:ring-primary/10 focus:border-primary'
-                }`}
+                    ? 'border-red-500 focus:ring-red-500'
+                    : 'border-outline-variant focus:ring-primary/10 focus:border-primary'
+                  }`}
               />
 
               {validationErrors.email && (
@@ -222,9 +227,9 @@ export default function Register({ changeMode }) {
                   required
                   className={`w-full pl-4 pr-12 py-3 bg-surface-container-low border rounded-lg outline-none transition-all
                   ${validationErrors.password
-                    ? 'border-red-500 focus:ring-red-500'
-                    : 'border-outline-variant focus:ring-primary/10 focus:border-primary'
-                  }`}
+                      ? 'border-red-500 focus:ring-red-500'
+                      : 'border-outline-variant focus:ring-primary/10 focus:border-primary'
+                    }`}
                 />
 
                 <button
