@@ -53,6 +53,9 @@ export default function Navbar() {
                         <LinkComponent href="/about">
                             About Us
                         </LinkComponent>
+                        <LinkComponent href="/verify-email">
+                            Verify Email
+                        </LinkComponent>
 
                     </div>
                 </div>

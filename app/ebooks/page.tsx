@@ -6,6 +6,7 @@ import Pagination from '@/components/ebook/Pagination'
 import EbooksSkeleton from '@/components/ebook/EbooksSkeleton'
 import EmptyEbooks from '@/components/ebook/EmptyEbooks'
 import { Ebook } from '@/types/ebook'
+import RunToast from '@/components/ui/RunToast'
 
 export default function EbooksPage() {
   const [ebooks, setEbooks] = useState<Ebook[]>([])
@@ -52,6 +53,8 @@ export default function EbooksPage() {
 
   return (
     <div className="relative pt-32 pb-xl overflow-hidden">
+      {/* Run Toast if defined */}
+      <RunToast />
       <section className="mb-lg container mx-auto px-4 lg:px-8">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-md mb-md">
           <div>
