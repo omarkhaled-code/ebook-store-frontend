@@ -42,7 +42,7 @@ export default function Navbar() {
                     {/* الروابط المحسنة والمحدثة */}
                     <div className="hidden md:flex gap-md ml-lg">
                         <LinkComponent href="/ebooks">
-                            Explore
+                            Explores
                         </LinkComponent>
                         <LinkComponent href="/trending">
                             Trending
