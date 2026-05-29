@@ -2,7 +2,7 @@
 
 
 import style from "../style/EbooksSkeleton.module.css"
-export default function EbookSkeleton() {
+export default function EbooksSkeleton() {
     return (
         <main className="pt-32 pb-xl px-gutter max-w-container-max mx-auto">
             {/* <!-- Header Skeleton --> */}

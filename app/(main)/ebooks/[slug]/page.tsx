@@ -1,30 +1,27 @@
 import { laravelFetch } from '@/lib/laravel'
 import { Ebook } from '@/types/ebook'
 import { notFound } from 'next/navigation'
-import Image from 'next/image'
+// import Image from 'next/image'
 import RelatedEbooks from '@/components/ebook/RelatedEbooks'
 import RunToast from '@/components/ui/RunToast'
+import BuyButton from '@/components/ebook/BuyButton'
+
+import { Suspense } from 'react'
+import EbookDetailSkeleton from '@/components/ebook/EbookSkeleton'
+
 
 interface Props {
   params: Promise<{ slug: string }>
 }
 
 
-
-// This runs on the SERVER — fast, SEO friendly, no loading spinner needed
-export default async function EbookDetailPage({ params }: Props) {
-  const { slug } = await params
-
-  const res = await laravelFetch(`/ebooks/${slug}`)
-
-  // If ebook not found, show Next.js 404 page
-  if (!res.ok) {
-    notFound()
-  }
-
-  const { data: ebook }: { data: Ebook } = await res.json()
+async function EbookContent({ slug }: { slug: string }) {
+  const res = await laravelFetch(`/ebooks/${slug}`);
+  if (!res.ok) notFound();
+  const { data: ebook } = await res.json();
 
   return (
+    // هنا ضع كل محتوى الـ JSX الأصلي الخاص بك (الذي يبدأ بـ <main>)
     <main className="pt-24 pb-xl">
       <RunToast />
       <div className="max-w-container-max mx-auto px-4 md:px-gutter">
@@ -95,11 +92,7 @@ export default async function EbookDetailPage({ params }: Props) {
 
               </div>
               <div className="flex flex-col gap-3 w-full md:w-auto relative z-10">
-                <button
-                  className="bg-primary text-on-primary px-8 md:px-xl py-3 md:py-4 rounded-xl font-headline-sm text-lg md:text-headline-sm hover:brightness-110 active:scale-[0.98] transition-all shadow-lg flex items-center justify-center gap-3 cursor-pointer">
-                  Buy Now
-                  <span className="material-symbols-outlined">arrow_forward</span>
-                </button>
+                <BuyButton ebookId={ebook.id} price={ebook.price} />
                 <button
                   className="bg-surface text-on-surface border border-outline-variant px-8 md:px-xl py-3 md:py-4 rounded-xl font-headline-sm text-lg md:text-headline-sm hover:bg-surface-container transition-all flex items-center justify-center gap-3 cursor-pointer">
                   <span className="material-symbols-outlined">add_shopping_cart</span>
@@ -129,6 +122,23 @@ export default async function EbookDetailPage({ params }: Props) {
         <RelatedEbooks category={ebook.category || "General"} />
       </div>
     </main>
+  );
+}
 
-  )
+
+
+// This runs on the SERVER — fast, SEO friendly, no loading spinner needed
+export default async function EbookDetailPage({ params }: Props) {
+
+
+  const { slug } = await params;
+
+  return (
+    // بمجرد أن ينتقل المستخدم، سيعرض Next.js الـ fallback فوراً
+    // ويختفي إشعار "Rendering..." من الصفحة القديمة
+    <Suspense fallback={<EbookDetailSkeleton />}>
+      <EbookContent slug={slug} />
+    </Suspense>
+  );
+
 }

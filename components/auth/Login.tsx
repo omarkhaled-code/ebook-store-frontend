@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import SocialLogin from "./SocialLogin"
 import { useAuthStore } from '@/store/authStore'
+import { User } from '@/types/user'
 
 export default function Login({ changeMode }) {
 
@@ -113,7 +114,7 @@ export default function Login({ changeMode }) {
       }
 
       // Success
-      console.log('User:', data.user)
+      console.log('User:', data.user as User)
       setUser(data.user)
 
       router.refresh()

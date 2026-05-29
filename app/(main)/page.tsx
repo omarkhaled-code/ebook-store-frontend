@@ -44,7 +44,7 @@ export default function HomePage() {
 
   return (
     <div className="bg-background text-on-background antialiased overflow-x-hidden min-h-screen">
-      
+
       {/* Hero Section */}
       <header className="relative pt-32 pb-xl overflow-hidden">
         <div className="absolute inset-0 -z-10">
