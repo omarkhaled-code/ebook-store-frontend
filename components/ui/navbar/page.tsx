@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useAuthStore } from '@/store/authStore';
+import { useRouter } from 'next/navigation'
 
 const LinkComponent = ({ href, children }: { href: string; children: React.ReactNode }) => {
     const pathname = usePathname();
@@ -19,14 +20,16 @@ const LinkComponent = ({ href, children }: { href: string; children: React.React
 export default function Navbar() {
 
     const { isAuthenticated, clearAuth } = useAuthStore()
+    const router = useRouter()  
 
     const handleLogout = async () => {
 
-        const res = await fetch('api/auth/logout', {
+        const res = await fetch('/api/auth/logout', {
             method: "POST"
         })
         if (res.ok) {
             clearAuth()
+            router.push('/auth')
         }
     }
     return (
@@ -44,17 +47,17 @@ export default function Navbar() {
                         <LinkComponent href="/ebooks">
                             Explores
                         </LinkComponent>
-                        <LinkComponent href="/trending">
+                        {/* <LinkComponent href="/trending">
                             Trending
                         </LinkComponent>
                         <LinkComponent href="/categories">
                             Categories
-                        </LinkComponent>
+                        </LinkComponent> */}
                         <LinkComponent href="/about">
                             About Us
                         </LinkComponent>
-                        <LinkComponent href="/verify-email">
-                            Verify Email
+                        <LinkComponent href="/contact">
+                            Contact Us
                         </LinkComponent>
 
                     </div>

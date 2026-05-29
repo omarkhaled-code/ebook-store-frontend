@@ -1,5 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
+import NavLink from "../ui/NavLink"
 
 interface EbookCardProps {
   title: string
@@ -21,7 +22,7 @@ export default function EbookCard({
   isBestSeller = false,
 }: EbookCardProps) {
   return (
-    <Link
+    <NavLink
       href={`/ebooks/${slug}`}
       className="bg-surface-container-lowest p-sm rounded-2xl border border-outline-variant/30 hover:border-primary/50 hover:shadow-lg transition-all group"
     >
@@ -63,13 +64,13 @@ export default function EbookCard({
           <span className="font-headline-sm text-headline-sm text-on-surface">
             ${price}
           </span>
-          <button className="bg-primary-container/10 text-primary p-1.5 rounded-lg hover:bg-primary hover:text-on-primary transition-all">
+          <div className="bg-primary-container/10 text-primary p-1.5 rounded-lg hover:bg-primary hover:text-on-primary transition-all">
             <span className="material-symbols-outlined text-[20px]">
               shopping_cart
             </span>
-          </button>
+          </div>
         </div>
       </div>
-    </Link>
+    </NavLink>
   )
 }

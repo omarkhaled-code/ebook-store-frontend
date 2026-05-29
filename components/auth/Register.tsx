@@ -119,7 +119,7 @@ export default function Register({ changeMode }) {
 
       // 👈 Redirect to verify email page — not dashboard!
       router.refresh()
-      router.push('/auth/verify-email')
+      router.push('/verify-email')
 
       
 

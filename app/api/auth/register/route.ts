@@ -10,7 +10,8 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
 
     const validatedFields = registerSchema.safeParse(body);
-
+    console.log(validatedFields);
+    
     if (!validatedFields.success) {
       return NextResponse.json(
         {

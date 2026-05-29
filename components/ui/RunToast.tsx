@@ -15,7 +15,9 @@ export default function RunToast() {
             toast.warning("Please log in to purchase ebooks!")
             hasShown.current = true // 👈 mark as shown
         }
+        
         if (isAuthenticated && !user?.email_verified_at) {
+            console.log("Email Verified At: ", user?.email_verified_at);
             toast.warning("Please verify your email to purchase ebooks!")
             hasShown.current = true // 👈 mark as shown
         }
