@@ -24,7 +24,7 @@ export default function EbookCard({
   return (
     <NavLink
       href={`/ebooks/${slug}`}
-      className="bg-surface-container-lowest p-sm rounded-2xl border border-outline-variant/30 hover:border-primary/50 hover:shadow-lg transition-all group"
+      className={"bg-surface-container-lowest p-sm rounded-2xl border border-outline-variant/30 hover:border-primary/50 hover:shadow-lg transition-all group"}
     >
       <div className="aspect-[3/4] rounded-xl overflow-hidden mb-sm relative">
         {imageUrl ? (
