@@ -4,6 +4,8 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuthStore } from '@/store/authStore'
 
+
+
 export default function Register({ changeMode }) {
   const { setUser } = useAuthStore()
   const router = useRouter()
@@ -121,7 +123,7 @@ export default function Register({ changeMode }) {
       router.refresh()
       router.push('/verify-email')
 
-      
+
 
     } catch (err) {
 
@@ -170,7 +172,7 @@ export default function Register({ changeMode }) {
                 onChange={handleChange}
                 required
                 className={`w-full pl-4 pr-4 py-3 bg-surface-container-low border rounded-lg outline-none transition-all
-                ${validationErrors.name
+                  ${validationErrors.name
                     ? 'border-red-500 focus:ring-red-500'
                     : 'border-outline-variant focus:ring-primary/10 focus:border-primary'
                   }`}
@@ -197,7 +199,7 @@ export default function Register({ changeMode }) {
                 onChange={handleChange}
                 required
                 className={`w-full pl-4 pr-4 py-3 bg-surface-container-low border rounded-lg outline-none transition-all
-                ${validationErrors.email
+                  ${validationErrors.email
                     ? 'border-red-500 focus:ring-red-500'
                     : 'border-outline-variant focus:ring-primary/10 focus:border-primary'
                   }`}
@@ -226,7 +228,7 @@ export default function Register({ changeMode }) {
                   onChange={handleChange}
                   required
                   className={`w-full pl-4 pr-12 py-3 bg-surface-container-low border rounded-lg outline-none transition-all
-                  ${validationErrors.password
+                    ${validationErrors.password
                       ? 'border-red-500 focus:ring-red-500'
                       : 'border-outline-variant focus:ring-primary/10 focus:border-primary'
                     }`}
@@ -290,3 +292,4 @@ export default function Register({ changeMode }) {
     </div>
   )
 }
+

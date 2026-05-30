@@ -1,5 +1,8 @@
 import React from 'react'
 import Link from 'next/link'
+import SideNav from '@/components/dashboard/SideNav'
+import BottomNav from '@/components/dashboard/BottomNav'
+import DashboardHeader from '@/components/dashboard/DashboardHeader'
 
 // هذه الروابط يمكنك لاحقاً استيرادها من ملف الـ Config الذي أنشأناه
 const dashboardLinks = [
@@ -7,37 +10,29 @@ const dashboardLinks = [
     { label: 'My Ebooks', href: '/dashboard/ebooks' },
     { label: 'Settings', href: '/dashboard/settings' },
 ]
-
+    
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
     return (
-        <div className="flex min-h-screen bg-gray-50">
-            {/* Sidebar الجانبي */}
-            <aside className="w-64 bg-white border-r border-gray-200 p-6">
-                <h2 className="text-xl font-bold mb-8 text-green-600">Dashboard</h2>
-                <nav className="flex flex-col gap-4">
-                    {dashboardLinks.map((link) => (
-                        <Link 
-                            key={link.href} 
-                            href={link.href}
-                            className="text-gray-700 hover:text-green-600 font-medium transition-colors"
-                        >
-                            {link.label}
-                        </Link>
-                    ))}
-                    {/* زر العودة للمتجر */}
-                    <hr className="my-4" />
-                    <Link href="/" className="text-gray-500 hover:text-black text-sm">
-                        ← Back to Store
-                    </Link>
-                </nav>
-            </aside>
+        <div className="flex min-h-screen bg-surface-container-lowest">
 
-            {/* المحتوى الرئيسي */}
-            <main className="flex-1 p-8">
-                <div className='bg-white p-6 rounded-lg shadow-sm border border-gray-100'>
+            {/* Sidebar — desktop only */}
+            <SideNav />
+
+            {/* Right side — header + content */}
+            <div className="flex-1 flex flex-col ml-0 md:ml-64">
+
+                {/* Header — always visible */}
+                <DashboardHeader />
+
+                {/* Page content */}
+                <main className="flex-1 p-lg pb-24 md:pb-lg">
                     {children}
-                </div>
-            </main>
+                </main>
+
+            </div>
+
+            {/* Bottom nav — mobile only */}
+            <BottomNav />
         </div>
     )
 }

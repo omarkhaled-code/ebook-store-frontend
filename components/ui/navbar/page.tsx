@@ -19,8 +19,8 @@ const LinkComponent = ({ href, children }: { href: string; children: React.React
 
 export default function Navbar() {
 
-    const { isAuthenticated, clearAuth } = useAuthStore()
-    const router = useRouter()  
+    const { isAuthenticated, user, clearAuth } = useAuthStore()
+    const router = useRouter()
 
     const handleLogout = async () => {
 
@@ -49,10 +49,10 @@ export default function Navbar() {
                         </LinkComponent>
                         {/* <LinkComponent href="/trending">
                             Trending
-                        </LinkComponent>
-                        <LinkComponent href="/categories">
+                            </LinkComponent>
+                            <LinkComponent href="/categories">
                             Categories
-                        </LinkComponent> */}
+                            </LinkComponent> */}
                         <LinkComponent href="/about">
                             About Us
                         </LinkComponent>
@@ -60,6 +60,12 @@ export default function Navbar() {
                             Contact Us
                         </LinkComponent>
 
+                        {isAuthenticated && (
+
+                            <LinkComponent href="/dashboard">
+                                Dashboard
+                            </LinkComponent>
+                        )}
                     </div>
                 </div>
 
