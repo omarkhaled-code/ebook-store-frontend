@@ -1,0 +1,51 @@
+/* EbookCard.module.css */
+.cardShadow {
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+.shimmerBg {
+    background: linear-gradient(90deg, rgba(228, 225, 237, 0.4) 25%, rgba(99, 102, 241, 0.15) 50%, rgba(228, 225, 237, 0.4) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite linear;
+}
+
+@keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+.loadingActive {
+    animation: pulseBreathing 2s ease-in-out infinite;
+    cursor: wait;
+}
+
+.loadingOverlay {
+    display: none;
+    position: absolute;
+    inset: 0;
+    z-index: 50;
+    background: rgba(252, 248, 255, 0.7);
+    backdrop-filter: blur(8px);
+    flex-direction: column;
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+}
+
+.showOverlay {
+    display: flex !important;
+}
+
+@keyframes pulseBreathing {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.01); }
+}
+
+.morphingBlob {
+    animation: morph 6s linear infinite alternate;
+}
+
+@keyframes morph {
+    0%, 100% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; }
+    34% { border-radius: 70% 30% 50% 50% / 30% 60% 40% 70%; }
+    67% { border-radius: 100% 60% 60% 100% / 100% 100% 60% 60%; }
+}
