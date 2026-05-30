@@ -19,16 +19,6 @@ export default async function DashboardPage() {
     return (
         <div className="space-y-xl">
 
-            {/* Header */}
-            <div>
-                <h1 className="font-headline-md text-headline-md text-on-surface">
-                    Dashboard
-                </h1>
-                <p className="font-body-md text-on-surface-variant">
-                    Welcome back! Here's your reading overview.
-                </p>
-            </div>
-
             {/* Stats cards */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-md">
 

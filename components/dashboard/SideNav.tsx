@@ -31,30 +31,13 @@ export default function SideNav() {
   }
 
   return (
-    <aside className="h-screen w-64 fixed left-0 top-0 bg-surface-container-low flex flex-col py-lg px-md gap-4 z-40 hidden md:flex">
+    <aside className="h-screen w-64 fixed left-0 top-0 bg-surface-container-low flex flex-col py-lg px-md gap-4 z-40 hidden md:flex border-r border-outline-variant/30">
       
       {/* Logo */}
       <div className="mb-lg">
         <Link href="/" className="font-headline-sm text-headline-sm font-bold text-primary">
           LuminaBooks
         </Link>
-      </div>
-
-      {/* User info */}
-      <div className="flex items-center gap-3 px-4 mb-xl">
-        <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-          <span className="font-headline-sm text-primary font-bold uppercase">
-            {user?.name?.charAt(0) || '?'}
-          </span>
-        </div>
-        <div>
-          <p className="font-body-sm text-on-surface font-semibold truncate max-w-[130px]">
-            {user?.name || 'User'}
-          </p>
-          <p className="font-body-sm text-on-surface-variant text-[12px]">
-            {user?.role === 'admin' ? 'Admin' : 'Member'}
-          </p>
-        </div>
       </div>
 
       {/* Nav links */}
