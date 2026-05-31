@@ -13,26 +13,31 @@ const dashboardLinks = [
     
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
     return (
-        <div className="flex min-h-screen bg-surface-container-lowest">
-
-            {/* Sidebar — desktop only */}
-            <SideNav />
-
-            {/* Right side — header + content */}
-            <div className="flex-1 flex flex-col ml-0 md:ml-64">
-
-                {/* Header — always visible */}
-                <DashboardHeader />
-
-                {/* Page content */}
-                <main className="flex-1 p-lg pb-24 md:pb-lg">
-                    {children}
-                </main>
-
+        /* هنشيل overflow-x-hidden من هنا ونحطها في الـ main */
+        <div className="min-h-screen bg-surface-container-lowest flex">
+            
+            {/* 1. القائمة الجانبية (ثابتة في الشاشات الكبيرة) */}
+            <div className="hidden md:block w-64 flex-shrink-0">
+                <SideNav />
             </div>
 
-            {/* Bottom nav — mobile only */}
-            <BottomNav />
+            {/* 2. المحتوى الرئيسي (هياخد المساحة الباقية) */}
+            {/* flex-1 دي بتخليه ياخد كل المساحة المتبقية من غير ما يحتاج margin */}
+            <main className="flex-1 flex flex-col min-w-0 overflow-x-hidden">
+                
+                <DashboardHeader />
+
+                {/* المحتوى الفعلي */}
+                <div className="flex-1 p-lg pb-24 md:pb-lg">
+                    {children}
+                </div>
+            </main>
+
+            {/* 3. القائمة السفلية (موبايل فقط) */}
+            <div className="md:hidden">
+                <BottomNav />
+            </div>
+
         </div>
     )
 }

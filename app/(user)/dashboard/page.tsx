@@ -17,11 +17,12 @@ export default async function DashboardPage() {
     }, 0)
 
     return (
-        <div className="space-y-xl">
+        <div className="max-w-7xl space-y-lg">
 
             {/* Stats cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-md">
-
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-md ">
+            
                 <div className="bg-surface rounded-xl p-md border border-outline-variant/30 space-y-xs">
                     <div className="flex items-center justify-between">
                         <p className="font-body-sm text-on-surface-variant">Total Ebooks</p>
@@ -35,7 +36,7 @@ export default async function DashboardPage() {
                     </p>
                 </div>
 
-                <div className="bg-surface rounded-xl p-md border border-outline-variant/30 space-y-xs">
+                <div className="bg-surface rounded-xl p-md border border-outline-variant/30 space-y-xs ">
                     <div className="flex items-center justify-between">
                         <p className="font-body-sm text-on-surface-variant">Total Spent</p>
                         <span className="material-symbols-outlined text-secondary">payments</span>
@@ -68,7 +69,7 @@ export default async function DashboardPage() {
 
             {/* Recent purchases */}
             <div>
-                <div className="flex items-center justify-between mb-md">
+                <div className="flex items-center justify-between mb-md ">
                     <h2 className="font-headline-sm text-headline-sm text-on-surface">
                         Recent Purchases
                     </h2>
@@ -82,7 +83,7 @@ export default async function DashboardPage() {
                 </div>
 
                 {purchases.length === 0 ? (
-                    <div className="text-center py-xl border border-outline-variant/30 rounded-xl">
+                    <div className="text-center py-xl border border-outline-variant/30 rounded-xl ">
                         <span className="material-symbols-outlined text-[48px] text-outline">
                             menu_book
                         </span>
@@ -105,7 +106,7 @@ export default async function DashboardPage() {
                                 className="flex items-center gap-md p-md bg-surface rounded-xl border border-outline-variant/30"
                             >
                                 {/* Cover */}
-                                <div className="w-12 h-16 rounded-lg bg-surface-container-high flex items-center justify-center flex-shrink-0 overflow-hidden">
+                                <div className="w-12 h-16 rounded-lg bg-surface-container-high flex items-center justify-center flex-shrink-0 ">
                                     {order.ebook.cover_image_path ? (
                                         <img
                                             src={order.ebook.cover_image_path}

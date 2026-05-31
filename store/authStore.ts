@@ -33,7 +33,7 @@ export const useAuthStore = create<AuthStore>()(
           }
 
           // إذا نجح الطلب، قم بتحديث الحالة
-          set({ user: data, isAuthenticated: true });
+          set({ user: data.user, isAuthenticated: true });
         } catch (error) {
           // في حال حدوث خطأ في الشبكة أو أي مشكلة أخرى
           set({ user: null, isAuthenticated: false });
