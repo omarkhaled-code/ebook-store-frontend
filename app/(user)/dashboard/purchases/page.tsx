@@ -2,6 +2,7 @@ import { laravelFetch } from '@/lib/laravel'
 import { Order } from '@/types/order'
 import DownloadButton from '@/components/dashboard/DownloadButton'
 import Link from 'next/link'
+import Image from 'next/image'
 
 async function getPurchases() {
     const res = await laravelFetch('/dashboard/purchases')
@@ -56,12 +57,15 @@ export default async function PurchasesPage() {
                         className="bg-surface rounded-2xl border border-outline-variant/30 overflow-hidden hover:shadow-md transition-all group"
                     >
                         {/* Cover */}
-                        <div className="aspect-[3/2] bg-surface-container-high overflow-hidden relative">
+                        <div className="aspect-[3/3] bg-surface-container-high overflow-hidden relative">
                             {order.ebook.cover_image_path ? (
-                                <img
-                                    src={order.ebook.cover_image_path}
+                                <Image
+                                    src={`${process.env.NEXT_PUBLIC_LARAVEL_IMG_URL}/${order.ebook.cover_image_path}`}
                                     alt={order.ebook.title}
+                                    width={300}
+                                    height={400}
                                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                    unoptimized
                                 />
                             ) : (
                                 <div className="w-full h-full flex items-center justify-center">

@@ -1,5 +1,4 @@
 import { laravelFetch } from '@/lib/laravel'
-import { Ebook } from '@/types/ebook'
 import { notFound } from 'next/navigation'
 // import Image from 'next/image'
 import RelatedEbooks from '@/components/ebook/RelatedEbooks'
@@ -8,7 +7,37 @@ import BuyButton from '@/components/ebook/BuyButton'
 
 import { Suspense } from 'react'
 import EbookDetailSkeleton from '@/components/ebook/EbookSkeleton'
+import Image from 'next/image'
 
+
+
+const EbookImage = ({ image }: { image?: string | null }) => {
+  console.log(image)
+  if (!image) {
+    return (
+      <Image alt="Book Cover" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+        src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPwGdVHdJiVfRJL-EjdupqDbsLCKeS3DcpUX_w9nZ8Skl___36-CzCmZLZQoZBARwa0BwEhu33Dho2MBS8e5F31e3EoMT38LNRxFrng4NZrdKFcIq8vLtyDph45FTSC2beodJY9R32kzIQlpTODH14n-SQDgeD5uu6XWq8ru-FwekXgiIKx6ohmmoeFEa_SAI8gziaoZW_hbbIplN4dZnSRJy_WMueHUYLmZ5TP8geX2P32IIR7FiKWqc5rWIfG1VdH1z-FJr_Lg"
+        width={400}
+        height={500} />
+    )
+
+  }
+  else {
+    const fullImageUrl = `${process.env.NEXT_PUBLIC_LARAVEL_IMG_URL}/${image.startsWith('/') ? image.substring(1) : image}`;
+    return (
+
+      <Image
+        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+        src={fullImageUrl}
+        alt="Ebook Cover"
+        width={400}
+        height={500}
+        unoptimized
+        
+      />
+    )
+  }
+}
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -30,10 +59,7 @@ async function EbookContent({ slug }: { slug: string }) {
           <div className="lg:col-span-5 xl:col-span-4">
             <div className="sticky top-24">
               <div className="book-shadow rounded-lg overflow-hidden aspect-[3/4] mb-md relative group">
-                <img alt="Book Cover"
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  data-alt="A sophisticated book cover featuring minimalist abstract geometric patterns in shades of deep indigo and soft lavender. The lighting is professional and soft, highlighting the textured paper finish of the book. The title text is rendered in a clean, modern serif font that exudes elegance and authority. This image represents a premium educational resource for modern designers and architects."
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPwGdVHdJiVfRJL-EjdupqDbsLCKeS3DcpUX_w9nZ8Skl___36-CzCmZLZQoZBARwa0BwEhu33Dho2MBS8e5F31e3EoMT38LNRxFrng4NZrdKFcIq8vLtyDph45FTSC2beodJY9R32kzIQlpTODH14n-SQDgeD5uu6XWq8ru-FwekXgiIKx6ohmmoeFEa_SAI8gziaoZW_hbbIplN4dZnSRJy_WMueHUYLmZ5TP8geX2P32IIR7FiKWqc5rWIfG1VdH1z-FJr_Lg" />
+                <EbookImage image={ebook.cover_image_path} />
               </div>
             </div>
           </div>
@@ -103,17 +129,7 @@ async function EbookContent({ slug }: { slug: string }) {
             <div className="prose max-w-none">
               <h3 className="font-headline-md text-headline-md text-on-surface mb-4">Detailed Description</h3>
               <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
-                "The Architecture of Luminescence" is more than just a book on lighting design; it's a
-                profound exploration of how light shapes our perception of space, emotion, and identity.
-                Alex Rivers, a world-renowned lighting architect, distills two decades of experience into a
-                visually stunning and intellectually rigorous guide.
-              </p>
-              <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed mt-4">
-                From the physics of photon scattering to the psychological impact of cool versus warm tones
-                in high-stress environments, this ebook covers the full spectrum of modern luminous design.
-                Whether you're a professional architect, a digital product designer, or an enthusiast of
-                atmospheric aesthetics, Rivers provides the framework to master the most powerful element in
-                the designer's toolkit.
+                {ebook.description}
               </p>
             </div>
           </div>

@@ -1,5 +1,6 @@
 import { laravelFetch } from '@/lib/laravel'
 import { Order } from '@/types/order'
+import Image from 'next/image'
 import Link from 'next/link'
 
 async function getPurchases() {
@@ -20,9 +21,9 @@ export default async function DashboardPage() {
         <div className="max-w-7xl space-y-lg">
 
             {/* Stats cards */}
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-md ">
-            
+
                 <div className="bg-surface rounded-xl p-md border border-outline-variant/30 space-y-xs">
                     <div className="flex items-center justify-between">
                         <p className="font-body-sm text-on-surface-variant">Total Ebooks</p>
@@ -108,10 +109,13 @@ export default async function DashboardPage() {
                                 {/* Cover */}
                                 <div className="w-12 h-16 rounded-lg bg-surface-container-high flex items-center justify-center flex-shrink-0 ">
                                     {order.ebook.cover_image_path ? (
-                                        <img
-                                            src={order.ebook.cover_image_path}
+                                        <Image
+                                            src={`${process.env.NEXT_PUBLIC_LARAVEL_IMG_URL}/${order.ebook.cover_image_path}`}
+                                            width={80}
+                                            height={160}
                                             alt={order.ebook.title}
                                             className="w-full h-full object-cover"
+                                            unoptimized
                                         />
                                     ) : (
                                         <span className="material-symbols-outlined text-outline">book_2</span>

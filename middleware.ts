@@ -1,12 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-// Routes that require login
 const protectedRoutes = [
   '/dashboard',
   '/checkout',
 ]
 
-// Routes only for guests (logged in users shouldn't see these)
+const adminRoutes = [
+  '/admin',
+]
+
 const guestOnlyRoutes = [
   '/auth',
 ]
@@ -15,24 +17,18 @@ export function middleware(request: NextRequest) {
   const token = request.cookies.get('auth_token')?.value
   const pathname = request.nextUrl.pathname
 
-  // Check if route is protected
-  const isProtectedRoute = protectedRoutes.some(route =>
-    pathname.startsWith(route)
-  )
+  const isProtectedRoute = protectedRoutes.some(r => pathname.startsWith(r))
+  const isAdminRoute = adminRoutes.some(r => pathname.startsWith(r))
+  const isGuestOnlyRoute = guestOnlyRoutes.some(r => pathname.startsWith(r))
 
-  // Check if route is guest only
-  const isGuestOnlyRoute = guestOnlyRoutes.some(route =>
-    pathname.startsWith(route)
-  )
-
-  // ❌ Not logged in + trying to access protected route
-  if (isProtectedRoute && !token) {
+  // Not logged in + protected route
+  if ((isProtectedRoute || isAdminRoute) && !token) {
     const loginUrl = new URL('/auth', request.url)
-    loginUrl.searchParams.set('redirect', pathname) // 👈 remember where they wanted to go
+    loginUrl.searchParams.set('redirect', pathname)
     return NextResponse.redirect(loginUrl)
   }
 
-  // ❌ Already logged in + trying to access login/register page
+  // Logged in + guest only route
   if (isGuestOnlyRoute && token) {
     return NextResponse.redirect(new URL('/dashboard', request.url))
   }
@@ -40,11 +36,11 @@ export function middleware(request: NextRequest) {
   return NextResponse.next()
 }
 
-// Tell Next.js which routes middleware should run on
 export const config = {
   matcher: [
     '/dashboard/:path*',
     '/checkout/:path*',
     '/auth/:path*',
+    '/admin/:path*',
   ]
 }

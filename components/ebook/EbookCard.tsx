@@ -1,5 +1,4 @@
 import Image from "next/image"
-import Link from "next/link"
 import NavLink from "../ui/NavLink"
 
 interface EbookCardProps {
@@ -21,6 +20,10 @@ export default function EbookCard({
   isNew = false,
   isBestSeller = false,
 }: EbookCardProps) {
+  
+  const fullImageUrl = `${process.env.NEXT_PUBLIC_LARAVEL_IMG_URL}/${imageUrl}`;
+  
+  console.log(process.env.NEXT_PUBLIC_LARAVEL_IMG_URL);
   return (
     <NavLink
       href={`/ebooks/${slug}`}
@@ -28,10 +31,14 @@ export default function EbookCard({
     >
       <div className="aspect-[3/4] rounded-xl overflow-hidden mb-sm relative">
         {imageUrl ? (
-          <img
+          <Image
             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
             alt={title}
-            src={imageUrl}
+            src={fullImageUrl}
+            width={300}
+            height={400}
+            unoptimized
+            
           />
         ) : (
           <Image
@@ -40,6 +47,7 @@ export default function EbookCard({
             width={300}
             height={400}
             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+            unoptimized
           />
         )}
         {isNew && (
