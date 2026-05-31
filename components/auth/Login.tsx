@@ -66,7 +66,9 @@ function LoginForm({ changeMode }: { changeMode: (mode: string) => void }) {
       setUser(data.user)
 
       // 👈 read redirect param — already available from top level
-      const redirectTo = searchParams.get('redirect') || '/'
+      const redirectTo = searchParams.get('redirect') || (data.user.role === 'admin' ? '/admin' : '/dashboard')
+        
+
       router.refresh()
       router.push(redirectTo)
 

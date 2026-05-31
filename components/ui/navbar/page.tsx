@@ -66,6 +66,11 @@ export default function Navbar() {
                                 Dashboard
                             </LinkComponent>
                         )}
+                        {(isAuthenticated && user?.role === 'admin') && (
+                            <LinkComponent href="/admin">
+                                Admin
+                            </LinkComponent>
+                        )}
                     </div>
                 </div>
 
