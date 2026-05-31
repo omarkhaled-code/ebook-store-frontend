@@ -6,6 +6,7 @@ import { useAuthStore } from '@/store/authStore'
 import { useToast } from '@/hooks/useToast'
 
 const navLinks = [
+  { label: 'Home',  href: '/',           icon: 'home' },
   { label: 'Dashboard',  href: '/dashboard',           icon: 'dashboard' },
   { label: 'My Library', href: '/dashboard/purchases',  icon: 'book_2' },
   { label: 'Settings',   href: '/dashboard/settings',   icon: 'settings' },
