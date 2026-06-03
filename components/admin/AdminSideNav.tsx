@@ -68,7 +68,7 @@ export default function AdminSideNav() {
       {/* Bottom */}
       <div className="space-y-1">
         <Link
-          href="/dashboard"
+          href="/dashboard/settings"
           className="flex items-center gap-3 px-md py-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-all font-body-sm"
         >
           <span className="material-symbols-outlined text-[20px]">person</span>

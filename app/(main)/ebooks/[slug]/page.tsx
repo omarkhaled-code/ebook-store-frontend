@@ -18,7 +18,9 @@ const EbookImage = ({ image }: { image?: string | null }) => {
       <Image alt="Book Cover" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
         src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPwGdVHdJiVfRJL-EjdupqDbsLCKeS3DcpUX_w9nZ8Skl___36-CzCmZLZQoZBARwa0BwEhu33Dho2MBS8e5F31e3EoMT38LNRxFrng4NZrdKFcIq8vLtyDph45FTSC2beodJY9R32kzIQlpTODH14n-SQDgeD5uu6XWq8ru-FwekXgiIKx6ohmmoeFEa_SAI8gziaoZW_hbbIplN4dZnSRJy_WMueHUYLmZ5TP8geX2P32IIR7FiKWqc5rWIfG1VdH1z-FJr_Lg"
         width={400}
-        height={500} />
+        height={500} 
+        unoptimized
+      />
     )
 
   }
