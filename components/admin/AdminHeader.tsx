@@ -2,12 +2,13 @@
 
 import { usePathname } from 'next/navigation'
 import { User } from '@/types/user'
+import NotificationBell from '@/components/admin/NotificationBell' // 👈 add import
 
 const pageTitles: Record<string, string> = {
-  '/admin':              'Overview',
-  '/admin/ebooks':       'Manage Ebooks',
-  '/admin/ebooks/new':   'Upload New Ebook',
-  '/admin/orders':       'All Orders',
+  '/admin':            'Overview',
+  '/admin/ebooks':     'Manage Ebooks',
+  '/admin/ebooks/new': 'Upload New Ebook',
+  '/admin/orders':     'All Orders',
 }
 
 export default function AdminHeader({ user }: { user: User }) {
@@ -26,6 +27,10 @@ export default function AdminHeader({ user }: { user: User }) {
       </div>
 
       <div className="flex items-center gap-sm">
+
+        {/* 👈 Add notification bell */}
+        <NotificationBell />
+
         <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center">
           <span className="font-headline-sm text-primary font-bold uppercase text-[14px]">
             {user?.name?.charAt(0) || 'A'}

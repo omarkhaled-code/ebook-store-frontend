@@ -35,15 +35,6 @@ export default function DashboardHeader() {
       {/* Right — User info + notifications */}
       <div className="flex items-center gap-md">
 
-        {/* Notification bell */}
-        <button className="relative w-9 h-9 rounded-full hover:bg-surface-container-high flex items-center justify-center transition-colors cursor-pointer">
-          <span className="material-symbols-outlined text-on-surface-variant text-[22px]">
-            notifications
-          </span>
-          {/* Notification dot */}
-          <span className="absolute top-1 right-1 w-2 h-2 bg-primary rounded-full" />
-        </button>
-
         {/* User avatar — desktop only */}
         <div className="hidden md:flex items-center gap-sm">
           <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center">
