@@ -122,11 +122,7 @@ async function EbookContent({ slug }: { slug: string }) {
               </div>
               <div className="flex flex-col gap-3 w-full md:w-auto relative z-10">
                 <BuyButton ebookId={ebook.id} price={ebook.price} />
-                <button
-                  className="bg-surface text-on-surface border border-outline-variant px-8 md:px-xl py-3 md:py-4 rounded-xl font-headline-sm text-lg md:text-headline-sm hover:bg-surface-container transition-all flex items-center justify-center gap-3 cursor-pointer">
-                  <span className="material-symbols-outlined">add_shopping_cart</span>
-                  Add to Library
-                </button>
+                
               </div>
             </div>
             <div className="prose max-w-none">
