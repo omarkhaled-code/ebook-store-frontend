@@ -1,13 +1,14 @@
 import { laravelFetch } from '@/lib/laravel'
 import { notFound } from 'next/navigation'
 // import Image from 'next/image'
-import RelatedEbooks from '@/components/ebook/RelatedEbooks'
+// import RelatedEbooks from '@/components/ebook/RelatedEbooks'
 import RunToast from '@/components/ui/RunToast'
 import BuyButton from '@/components/ebook/BuyButton'
 
 import { Suspense } from 'react'
 import EbookDetailSkeleton from '@/components/ebook/EbookSkeleton'
 import Image from 'next/image'
+import FeaturedEbookSection from '@/components/ebook/FeaturedEbookSection'
 
 
 
@@ -137,7 +138,8 @@ async function EbookContent({ slug }: { slug: string }) {
           </div>
         </div>
         {/* <!-- Related Ebooks Section --> */}
-        <RelatedEbooks category={ebook.category || "General"} />
+        {/* <RelatedEbooks category={ebook.category || "General"} /> */}
+        <FeaturedEbookSection withBG={false} currentBookId={ebook.id} />
       </div>
     </main>
   );

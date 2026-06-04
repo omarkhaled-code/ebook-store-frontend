@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useToast } from '@/hooks/useToast'
+import { useConfirmStore } from '@/store/confirmStore'
 
 interface Props {
   ebookId: number
@@ -12,6 +13,7 @@ interface Props {
 export default function AdminEbookActions({ ebookId, isPublished }: Props) {
   const [published, setPublished] = useState(isPublished)
   const [loading, setLoading] = useState(false)
+  const { openConfirm } = useConfirmStore()
   const router = useRouter()
   const toast = useToast()
 
@@ -35,29 +37,47 @@ export default function AdminEbookActions({ ebookId, isPublished }: Props) {
     }
   }
 
-  const handleDelete = async () => {
-    if (!confirm('Are you sure you want to delete this ebook?')) return
+  // const handleDelete = async () => {
+  //   if (!confirm('Are you sure you want to delete this ebook?')) return
 
-    setLoading(true)
-    try {
-      const res = await fetch(`/api/admin/ebooks/${ebookId}`, {
-        method: 'DELETE',
-      })
+  //   setLoading(true)
+  //   try {
+  //     const res = await fetch(`/api/admin/ebooks/${ebookId}`, {
+  //       method: 'DELETE',
+  //     })
 
-      if (!res.ok) {
-        const data = await res.json()
-        throw new Error(data.message)
+  //     if (!res.ok) {
+  //       const data = await res.json()
+  //       throw new Error(data.message)
+  //     }
+
+  //     toast.success('Ebook deleted successfully!')
+  //     router.refresh() // 👈 refresh the page to update the list
+
+  //   } catch (err) {
+  //     toast.error(err instanceof Error ? err.message : 'Something went wrong')
+  //   } finally {
+  //     setLoading(false)
+  //   }
+  const handleDelete = () => {
+    openConfirm('Are you sure you want to delete this ebook? This action cannot be undone.', async () => {
+      setLoading(true)
+      try {
+        const res = await fetch(`/api/admin/ebooks/${ebookId}`, {
+          method: 'DELETE',
+        })
+        if (!res.ok) throw new Error('Failed to delete')
+
+        toast.success('Ebook deleted successfully!')
+        router.refresh()
+      } catch (err) {
+        toast.error('Something went wrong')
+      } finally {
+        setLoading(false)
       }
-
-      toast.success('Ebook deleted successfully!')
-      router.refresh() // 👈 refresh the page to update the list
-
-    } catch (err) {
-      toast.error(err instanceof Error ? err.message : 'Something went wrong')
-    } finally {
-      setLoading(false)
-    }
+    })
   }
+
 
   return (
     <div className="flex items-center gap-xs">

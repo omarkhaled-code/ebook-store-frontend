@@ -3,6 +3,7 @@ import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import ToastContainer from "@/components/ui/Tost";
 import AuthProvider from "@/components/auth/AuthProvider"; // استيراد المكون الجديد
+import ConfirmModal from "@/components/ui/ConfirmModal";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const jetbrains = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono" });
@@ -25,6 +26,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 {/* نضع الـ AuthProvider هنا ليقوم بعمل الـ fetch عند تحميل التطبيق */}
                 <AuthProvider>
                     {children}
+                    <ConfirmModal />
                     <ToastContainer />
                 </AuthProvider>
             </body>

@@ -353,7 +353,7 @@ export default function SettingsPage() {
         </form>
       </div>
 
-      {/* Danger Zone */}
+      {/* Danger Zone
       <div className="bg-surface rounded-2xl border border-red-200 overflow-hidden">
         <div className="px-lg py-md border-b border-red-200">
           <h2 className="font-headline-sm text-headline-sm text-red-600">
@@ -374,7 +374,7 @@ export default function SettingsPage() {
             Delete Account
           </button>
         </div>
-      </div>
+      </div> */}
 
     </div>
   )
