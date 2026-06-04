@@ -60,8 +60,7 @@ function ToastItem({ id, message, type, duration = 4000 }: {
 
   return (
     <div
-      className={`relative
-        flex items-start gap-sm p-md rounded-xl border shadow-lg
+      className={`relative flex items-start gap-sm p-md rounded-xl border shadow-lg
         transition-all duration-300 ease-in-out w-[90vw] max-w-[400px] max-w-[400px]
         ${config.bg}
         ${visible
