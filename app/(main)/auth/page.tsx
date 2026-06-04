@@ -4,7 +4,7 @@ import Register from "@/components/auth/Register"
 import { useState } from "react"
 
 
-export default function page() {
+export default function AuthPage() {
     const [currentMode, setCurrentMode] = useState('login')
     return currentMode === 'login' ? <Login changeMode={setCurrentMode} /> : <Register changeMode={setCurrentMode} />
 }
