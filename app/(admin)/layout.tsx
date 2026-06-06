@@ -35,13 +35,15 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   return (
     <div className="flex min-h-screen bg-surface-container-lowest">
       <AdminSideNav />
-      <div className="flex-1 flex flex-col ml-0 md:ml-64">
+      <div className="flex-1 flex flex-col ml-0 md:ml-64 min-w-0 overflow-x-hidden">
         <AdminHeader user={user} />
-        <main className="flex-1 p-lg pb-24 md:pb-lg">
+        <main className="flex-1 p-lg pb-32 md:pb-lg">
           {children}
         </main>
       </div>
       <AdminBottomNav /> {/* 👈 add here */}
     </div>
+
+            
   )
 }

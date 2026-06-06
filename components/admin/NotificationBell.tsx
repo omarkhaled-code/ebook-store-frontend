@@ -108,89 +108,119 @@ export default function NotificationBell() {
       </button>
 
       {/* Dropdown */}
-      {open && (
-        <div className="absolute right-0 top-12 w-80 bg-surface border border-outline-variant/30 rounded-2xl shadow-xl z-50 overflow-hidden">
+   {open && (
+  <>
+    {/* خلفية معتمة خفيفة للموبايل فقط تقفل القائمة عند الضغط عليها لـ UX أفضل */}
+    <div 
+      className="md:hidden fixed inset-0 bg-black/20 dark:bg-black/40 z-40 backdrop-blur-sm"
+      onClick={() => setOpen(false)} // فرضاً أن لديك دالة لتغيير حالة الفتح
+    />
 
-          {/* Header */}
-          <div className="flex items-center justify-between px-md py-sm border-b border-outline-variant/30">
-            <h3 className="font-body-sm font-semibold text-on-surface">
-              Notifications
-              {unreadCount > 0 && (
-                <span className="ml-xs px-xs py-0.5 bg-primary/10 text-primary text-[11px] rounded-full">
-                  {unreadCount} new
-                </span>
-              )}
-            </h3>
-            {unreadCount > 0 && (
-              <button
-                onClick={handleMarkAllRead}
-                disabled={loading}
-                className="font-body-sm text-[12px] text-primary hover:underline cursor-pointer disabled:opacity-50"
-              >
-                Mark all read
-              </button>
-            )}
+    <div className="
+      /* إعدادات الموبايل (شاشة كاملة تقريباً ومثبتة في المنتصف أو أسفل الـ Navbar) */
+      fixed top-16 left-4 right-4 max-h-[calc(100vh-5rem)] w-auto
+      
+      /* إعدادات اللابتوب والـ Desktop (يرجع الـ Card لمكانه الطبيعي وعرضه الثابت) */
+      md:absolute md:top-12 md:right-0 md:left-auto md:w-80 md:max-h-[500px]
+      
+      /* التصميم المشترك الموحد */
+      bg-surface dark:bg-surface-dim border border-outline-variant/30 rounded-2xl shadow-xl z-50 overflow-hidden flex flex-col transition-all"
+    >
+
+      {/* Header */}
+      <div className="flex items-center justify-between px-md py-sm border-b border-outline-variant/30 bg-surface dark:bg-surface-dim sticky top-0 z-10">
+        <h3 className="font-body-sm font-semibold text-on-surface flex items-center">
+          Notifications
+          {unreadCount > 0 && (
+            <span className="ml-xs px-xs py-0.5 bg-primary/10 text-primary text-[11px] rounded-full">
+              {unreadCount} new
+            </span>
+          )}
+        </h3>
+        <div className="flex items-center gap-sm">
+          {unreadCount > 0 && (
+            <button
+              onClick={handleMarkAllRead}
+              disabled={loading}
+              className="font-body-sm text-[12px] text-primary hover:underline cursor-pointer disabled:opacity-50"
+            >
+              Mark all read
+            </button>
+          )}
+          {/* زر إغلاق إضافي يظهر في الموبايل فقط ليسهل على المستخدم قفل الإشعارات */}
+          <button 
+            onClick={() => setOpen(false)} 
+            className="md:hidden text-on-surface-variant hover:text-primary transition-colors cursor-pointer"
+          >
+            <span className="material-symbols-outlined text-[20px]">close</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Notifications list */}
+      <div className="overflow-y-auto flex-1 max-h-[360px] md:max-h-[400px]">
+        {notifications.length === 0 ? (
+          <div className="text-center py-xl">
+            <span className="material-symbols-outlined text-[36px] text-outline">
+              notifications_off
+            </span>
+            <p className="font-body-sm text-on-surface-variant mt-xs">
+              No notifications yet
+            </p>
           </div>
+        ) : (
+          notifications.map((notification) => (
+            <div
+              key={notification.id}
+              onClick={() => {
+                if (!notification.read) handleMarkRead(notification.id);
+                // اختياري: يمكنك غلق القائمة في الموبايل عند الضغط على الإشعار
+                if (window.innerWidth < 768) setOpen(false); 
+              }}
+              className={`px-md py-sm border-b border-outline-variant/20 cursor-pointer hover:bg-surface-container-low transition-colors
+                ${!notification.read ? 'bg-primary/5' : ''}`}
+            >
+              <div className="flex items-start gap-sm">
 
-          {/* Notifications list */}
-          <div className="max-h-[360px] overflow-y-auto">
-            {notifications.length === 0 ? (
-              <div className="text-center py-xl">
-                <span className="material-symbols-outlined text-[36px] text-outline">
-                  notifications_off
-                </span>
-                <p className="font-body-sm text-on-surface-variant mt-xs">
-                  No notifications yet
-                </p>
-              </div>
-            ) : (
-              notifications.map((notification) => (
-                <div
-                  key={notification.id}
-                  onClick={() => !notification.read && handleMarkRead(notification.id)}
-                  className={`px-md py-sm border-b border-outline-variant/20 cursor-pointer hover:bg-surface-container-low transition-colors
-                    ${!notification.read ? 'bg-primary/5' : ''}`}
-                >
-                  <div className="flex items-start gap-sm">
+                {/* Icon */}
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5
+                  ${!notification.read ? 'bg-primary/10' : 'bg-surface-container-high'}`}>
+                  <span className="material-symbols-outlined text-[16px] text-primary"
+                    style={{ fontVariationSettings: "'FILL' 1" }}>
+                    shopping_bag
+                  </span>
+                </div>
 
-                    {/* Icon */}
-                    <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5
-                      ${!notification.read ? 'bg-primary/10' : 'bg-surface-container-high'}`}>
-                      <span className="material-symbols-outlined text-[16px] text-primary"
-                        style={{ fontVariationSettings: "'FILL' 1" }}>
-                        shopping_bag
-                      </span>
-                    </div>
-
-                    {/* Content */}
-                    <div className="flex-1 min-w-0">
-                      <p className="font-body-sm text-on-surface text-[13px] leading-tight">
-                        <span className="font-semibold">{notification.data.user_name}</span>
-                        {' '}purchased{' '}
-                        <span className="font-semibold truncate">{notification.data.ebook_title}</span>
-                      </p>
-                      <div className="flex items-center justify-between mt-0.5">
-                        <p className="font-body-sm text-primary text-[12px] font-semibold">
-                          ${notification.data.amount}
-                        </p>
-                        <p className="font-body-sm text-on-surface-variant text-[11px]">
-                          {timeAgo(notification.created_at)}
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Unread dot */}
-                    {!notification.read && (
-                      <div className="w-2 h-2 bg-primary rounded-full flex-shrink-0 mt-1" />
-                    )}
+                {/* Content */}
+                <div className="flex-1 min-w-0">
+                  <p className="font-body-sm text-on-surface text-[13px] leading-tight break-words">
+                    <span className="font-semibold">{notification.data.user_name}</span>
+                    {' '}purchased{' '}
+                    <span className="font-semibold truncate block md:inline-block md:max-w-none max-w-[180px] vertical-bottom">{notification.data.ebook_title}</span>
+                  </p>
+                  <div className="flex items-center justify-between mt-0.5">
+                    <p className="font-body-sm text-primary text-[12px] font-semibold">
+                      ${notification.data.amount}
+                    </p>
+                    <p className="font-body-sm text-on-surface-variant text-[11px]">
+                      {timeAgo(notification.created_at)}
+                    </p>
                   </div>
                 </div>
-              ))
-            )}
-          </div>
 
-        </div>
-      )}
+                {/* Unread dot */}
+                {!notification.read && (
+                  <div className="w-2 h-2 bg-primary rounded-full flex-shrink-0 mt-1" />
+                )}
+              </div>
+            </div>
+          ))
+        )}
+      </div>
+
+    </div>
+  </>
+)}
     </div>
   )
 }
