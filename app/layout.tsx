@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import ToastContainer from "@/components/ui/Tost";
+import ToastContainer from "@/components/ui/Toast";
 import AuthProvider from "@/components/auth/AuthProvider"; // استيراد المكون الجديد
 import ConfirmModal from "@/components/ui/ConfirmModal";
 
