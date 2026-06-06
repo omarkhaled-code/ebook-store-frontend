@@ -1,5 +1,5 @@
 import Image from "next/image"
-import Link from "next/link"
+import NavLink from "../ui/NavLink"
 
 interface EbookCardProps {
   title: string
@@ -20,17 +20,25 @@ export default function EbookCard({
   isNew = false,
   isBestSeller = false,
 }: EbookCardProps) {
+  
+  const fullImageUrl = `${process.env.NEXT_PUBLIC_LARAVEL_IMG_URL}/${imageUrl}`;
+  
+  console.log(process.env.NEXT_PUBLIC_LARAVEL_IMG_URL);
   return (
-    <Link
+    <NavLink
       href={`/ebooks/${slug}`}
-      className="bg-surface-container-lowest p-sm rounded-2xl border border-outline-variant/30 hover:border-primary/50 hover:shadow-lg transition-all group"
+      className={"bg-surface-container-lowest p-sm rounded-2xl border border-outline-variant/30 hover:border-primary/50 hover:shadow-lg transition-all group"}
     >
       <div className="aspect-[3/4] rounded-xl overflow-hidden mb-sm relative">
         {imageUrl ? (
-          <img
+          <Image
             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
             alt={title}
-            src={imageUrl}
+            src={fullImageUrl}
+            width={300}
+            height={400}
+            unoptimized
+            
           />
         ) : (
           <Image
@@ -39,6 +47,7 @@ export default function EbookCard({
             width={300}
             height={400}
             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+            unoptimized
           />
         )}
         {isNew && (
@@ -63,13 +72,13 @@ export default function EbookCard({
           <span className="font-headline-sm text-headline-sm text-on-surface">
             ${price}
           </span>
-          <button className="bg-primary-container/10 text-primary p-1.5 rounded-lg hover:bg-primary hover:text-on-primary transition-all">
+          <div className="bg-primary-container/10 text-primary p-1.5 rounded-lg hover:bg-primary hover:text-on-primary transition-all">
             <span className="material-symbols-outlined text-[20px]">
               shopping_cart
             </span>
-          </button>
+          </div>
         </div>
       </div>
-    </Link>
+    </NavLink>
   )
 }
